@@ -21,7 +21,7 @@
 .ss-hero--campaign .ss-overline{color:var(--green-950)}
 .ss-hero__tri{position:absolute;z-index:1;left:34%;bottom:-6%;width:clamp(220px,30vw,480px);color:var(--white)}
 .ss-hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-@media (max-width:900px){.ss-hero--campaign{min-height:0}.ss-hero--campaign .ss-hero__media{position:relative;inset:auto;aspect-ratio:4/3;clip-path:polygon(0 0,100% 0,100% 86%,0 100%)}.ss-hero--campaign{display:flex;flex-direction:column}.ss-hero__tri{left:auto;right:-14%;top:28%;bottom:auto;width:62vw}.ss-hero--campaign .ss-hero__in{padding-block:24px 56px}.ss-hero--campaign .ss-hero__title{max-width:none}}
+@media (max-width:900px){.ss-hero--campaign{min-height:0;display:flex;flex-direction:column}.ss-hero--campaign .ss-hero__media{position:relative;inset:auto;aspect-ratio:4/3;clip-path:polygon(0 0,100% 0,100% 86%,0 100%)}.ss-hero--campaign .ss-hero__tri{left:auto;right:-10%;top:auto;bottom:6%;width:58vw}.ss-hero--campaign .ss-hero__in{padding-block:24px 56px}.ss-hero--campaign .ss-hero__title{max-width:none}}
 /* Hero — page */
 .ss-hero--page{background:var(--surface-subtle)}
 .ss-hero--page .ss-hero__in{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,80px);align-items:end;padding-block:clamp(40px,5vw,72px) clamp(56px,7vw,112px)}

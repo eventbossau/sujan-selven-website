@@ -29,7 +29,6 @@ export default function CommunityPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="Community"
         title={
           <>
             Local, <em>in person</em>

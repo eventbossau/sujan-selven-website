@@ -31,7 +31,6 @@ export function PrioritiesPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="Priorities"
         title={
           <>
             What <em>matters</em> to Cumberland

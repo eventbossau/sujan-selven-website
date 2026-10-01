@@ -18,8 +18,21 @@ export function NewsPage() {
   const go = useGo();
   const [cat, setCat] = React.useState('All');
   const [page, setPage] = React.useState(1);
+  const pageSize = 9;
   const list = KIT.news.filter((n) => cat === 'All' || n.category === cat);
-  const [lead, ...rest] = list;
+  const totalPages = Math.max(1, Math.ceil(list.length / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const start = (safePage - 1) * pageSize;
+  const pageItems = list.slice(start, start + pageSize);
+  const lead = safePage === 1 ? pageItems[0] : null;
+  const rest = safePage === 1 ? pageItems.slice(1) : pageItems;
+
+  const changePage = (next) => {
+    setPage(next);
+    const el = document.getElementById('news-results');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <>
       <Hero
@@ -33,12 +46,11 @@ export function NewsPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="News & updates"
         title="What’s new"
         lead="Community updates, local news and progress on the issues that matter."
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,56px)' }}>
-        <div className="ss-container">
+        <div className="ss-container" id="news-results">
           <div
             role="group"
             aria-label="Filter by category"
@@ -68,11 +80,13 @@ export function NewsPage() {
             <div style={{ marginBottom: 'clamp(48px,6vw,88px)' }}>
               <NewsCard
                 layout="feature"
-                image={{
-                  src: KIT.P + 'portrait-blazer-02.jpg',
-                  alt: 'Sujan Selven',
-                  position: '50% 30%',
-                }}
+                image={
+                  lead.image || {
+                    src: KIT.P + 'portrait-blazer-02.jpg',
+                    alt: 'Sujan Selven',
+                    position: '50% 30%',
+                  }
+                }
                 category={lead.category}
                 categoryTone={KIT.catTone[lead.category]}
                 date={lead.date}
@@ -94,9 +108,11 @@ export function NewsPage() {
             ))}
           </div>
           {!list.length && <p className="ss-lead">No updates in this category yet.</p>}
-          <div style={{ marginTop: 64 }}>
-            <Pagination page={page} total={6} onChange={setPage} />
-          </div>
+          {list.length > 0 && totalPages > 1 && (
+            <div style={{ marginTop: 64 }}>
+              <Pagination page={safePage} total={totalPages} onChange={changePage} />
+            </div>
+          )}
         </div>
       </section>
     </>

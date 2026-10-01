@@ -35,7 +35,14 @@ export function SiteShell({ children }) {
       <main id="main" data-screen-label={current}>
         {children}
       </main>
-      <SiteFooter onNavigate={onNavigate} socials={KIT.socials} about={draft.footer.about} />
+      <SiteFooter
+        onNavigate={onNavigate}
+        socials={KIT.socials}
+        about={draft.footer.about}
+        acknowledgement={draft.footer.acknowledgement}
+        authorisation={draft.footer.authorisation}
+        contact={KIT.contact}
+      />
     </>
   );
 }

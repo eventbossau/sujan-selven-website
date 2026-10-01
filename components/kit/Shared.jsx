@@ -88,8 +88,8 @@ export function ContactStrip({ go }) {
           <Button variant="secondary" {...linkTo(go, 'contact')}>
             Contact Sujan
           </Button>
-          <TextLink href="mailto:[email]" icon="mail" arrow={false}>
-            [email@domain]
+          <TextLink href={'mailto:' + KIT.contact.email} icon="mail" arrow={false}>
+            {KIT.contact.email}
           </TextLink>
         </div>
       </div>

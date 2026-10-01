@@ -30,9 +30,9 @@ export default function ContactPage() {
     if (!Object.keys(er).length) setSent(true);
   };
   const info = [
-    { icon: 'mail', l: 'Email', v: '[email@domain]' },
-    { icon: 'phone', l: 'Phone', v: '[phone]' },
-    { icon: 'map-pin', l: 'Office', v: '[Office address — by appointment]' },
+    { icon: 'mail', l: 'Email', v: KIT.contact.email, href: 'mailto:' + KIT.contact.email },
+    { icon: 'phone', l: 'Phone', v: KIT.contact.phone, href: KIT.contact.phoneHref },
+    { icon: 'map-pin', l: 'Office', v: KIT.contact.office },
   ];
   return (
     <>
@@ -47,7 +47,6 @@ export default function ContactPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="Contact"
         title={
           <>
             Let’s <em>talk</em>
@@ -95,11 +94,7 @@ export default function ContactPage() {
                 onChange={setType}
                 options={[
                   { value: 'general', label: 'General enquiry' },
-                  {
-                    value: 'issue',
-                    label: 'Local issue',
-                    description: 'In your street or suburb',
-                  },
+                  { value: 'issue', label: 'Local issue' },
                   { value: 'volunteer', label: 'Volunteering' },
                   { value: 'media', label: 'Media' },
                 ]}
@@ -124,7 +119,7 @@ export default function ContactPage() {
                   name="phone"
                   label="Phone"
                   type="tel"
-                  hint="Optional"
+                  optional
                   autoComplete="tel"
                 />
               </div>
@@ -171,7 +166,9 @@ export default function ContactPage() {
                     <dt className="ss-overline" style={{ color: 'var(--ink)' }}>
                       {i.l}
                     </dt>
-                    <dd style={{ margin: '4px 0 0', fontSize: 'var(--fs-body)' }}>{i.v}</dd>
+                    <dd style={{ margin: '4px 0 0', fontSize: 'var(--fs-body)' }}>
+                      {i.href ? <a href={i.href}>{i.v}</a> : i.v}
+                    </dd>
                   </div>
                 </div>
               ))}

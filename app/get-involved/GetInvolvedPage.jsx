@@ -35,7 +35,6 @@ export default function GetInvolvedPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="Get involved"
         title={
           <>
             Be part of <em>it</em>
@@ -146,7 +145,7 @@ export default function GetInvolvedPage() {
               </div>
               <TextField label="Email" type="email" required autoComplete="email" />
               <div className="kit-2col">
-                <TextField label="Mobile" type="tel" autoComplete="tel" hint="Optional" />
+                <TextField label="Mobile" type="tel" autoComplete="tel" optional />
                 <TextField label="Postcode" inputMode="numeric" required />
               </div>
               <Select

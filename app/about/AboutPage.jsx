@@ -31,7 +31,6 @@ export default function AboutPage() {
             onNavigate={(k) => go(k)}
           />
         }
-        overline="About Sujan"
         title={
           <>
             Grounded in <em>Cumberland</em>
