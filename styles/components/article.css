@@ -20,3 +20,11 @@
 .ss-prose blockquote::before{content:"\201C";display:block;font-size:4.5rem;line-height:.6;height:.42em;color:var(--green-500)}
 .ss-prose blockquote cite{display:block;margin-top:14px;font-family:var(--font-body);font-size:var(--fs-meta);font-style:normal;text-transform:none;color:var(--text-muted)}
 .ss-prose .ss-prose__wide{max-width:none;margin-inline:calc(var(--prose-bleed,0px)*-1)}
+.ss-share{display:flex;align-items:center;gap:16px;flex-wrap:wrap;line-height:1}
+.ss-share .ss-overline{line-height:1;color:var(--ink)}
+.ss-prose .ss-social{padding:0;margin:0;gap:8px}
+.ss-prose .ss-social>li{position:static;margin:0}
+.ss-prose .ss-social>li::before{content:none}
+.ss-prose .ss-social>li+li{margin-top:0}
+.ss-prose .ss-social a{color:var(--ink);font-weight:inherit}
+.ss-prose .ss-social a:hover{color:var(--white)}

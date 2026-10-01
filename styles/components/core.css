@@ -29,8 +29,9 @@
 .ss-tag--plain{background:transparent;padding-inline:0}
 .ss-tag--lg{font-size:.8125rem;padding:10px 14px 10px 12px}
 button.ss-tag,a.ss-tag{cursor:pointer;transition:border-color var(--dur-fast),background-color var(--dur-fast),color var(--dur-fast);font-family:var(--font-body)}
-button.ss-tag:hover,a.ss-tag:hover{border-color:var(--ink);color:var(--ink)}
+button.ss-tag:hover,a.ss-tag:hover{border-color:var(--ink)}
 .ss-tag[aria-pressed=true],.ss-tag[aria-current]{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.ss-tag[aria-pressed=true]:hover,.ss-tag[aria-current]:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 .ss-tag:disabled{opacity:.45;cursor:not-allowed}
 .ss-icon{display:inline-block;flex:none;vertical-align:middle}
 .ss-social{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
@@ -40,3 +41,4 @@ button.ss-tag:hover,a.ss-tag:hover{border-color:var(--ink);color:var(--ink)}
 .ss-social--inverse a{color:var(--white);border-color:var(--border-on-deep)}
 .ss-social--inverse a:hover{background:var(--white);border-color:var(--white);color:var(--green-900)}
 .ss-social--labelled a{width:auto;padding:0 16px 0 12px;gap:10px;font-weight:700;font-size:var(--fs-small);text-decoration:none}
+.ss-icon--facebook{transform:translateX(1.5px)}

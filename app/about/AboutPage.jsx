@@ -44,7 +44,7 @@ export default function AboutPage() {
         }}
       />
       <section className="ss-section">
-        <div className="ss-container ss-container--narrow" style={{ padding: 0 }}>
+        <div className="ss-container ss-container--narrow">
           <div className="ss-prose" style={{ marginInline: 'auto' }}>
             <p className="ss-prose__lead">{copy.opening}</p>
             <h2>Background</h2>

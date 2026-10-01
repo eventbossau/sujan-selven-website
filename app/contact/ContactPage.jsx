@@ -17,8 +17,11 @@ export default function ContactPage() {
   const go = useGo();
   const [type, setType] = React.useState('general');
   const [errors, setErrors] = React.useState({});
+  const [formError, setFormError] = React.useState('');
+  const [sending, setSending] = React.useState(false);
   const [sent, setSent] = React.useState(false);
-  const submit = (e) => {
+
+  const submit = async (e) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const er = {};
@@ -27,13 +30,47 @@ export default function ContactPage() {
       er.email = 'Enter a valid email address, like name@example.com';
     if (!f.get('message')) er.message = 'Tell us how we can help';
     setErrors(er);
-    if (!Object.keys(er).length) setSent(true);
+    setFormError('');
+    if (Object.keys(er).length) return;
+
+    const payload = {
+      type: f.get('type') || type,
+      name: String(f.get('name') || '').trim(),
+      email: String(f.get('email') || '').trim(),
+      phone: String(f.get('phone') || '').trim(),
+      suburb: String(f.get('suburb') || '').trim(),
+      message: String(f.get('message') || '').trim(),
+      updates: f.get('updates') === 'on',
+      company: String(f.get('company') || ''),
+    };
+
+    setSending(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (data.fieldErrors) setErrors(data.fieldErrors);
+        setFormError(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+      setSent(true);
+    } catch {
+      setFormError('Something went wrong. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
+
   const info = [
     { icon: 'mail', l: 'Email', v: KIT.contact.email, href: 'mailto:' + KIT.contact.email },
     { icon: 'phone', l: 'Phone', v: KIT.contact.phone, href: KIT.contact.phoneHref },
     { icon: 'map-pin', l: 'Office', v: KIT.contact.office },
   ];
+
   return (
     <>
       <Hero
@@ -77,7 +114,7 @@ export default function ContactPage() {
             >
               <h2 className="ss-display-s">Message sent</h2>
               <p className="ss-lead">
-                Thanks for getting in touch. [Expected response time to be confirmed.]
+                Thanks for getting in touch. We’ve also emailed you a confirmation.
               </p>
               <div>
                 <Button variant="secondary" onClick={() => setSent(false)}>
@@ -142,9 +179,18 @@ export default function ContactPage() {
                 name="updates"
                 label="I’d also like occasional email updates"
               />
+              <div className="ss-visually-hidden" aria-hidden="true">
+                <label htmlFor="ct-company">Company</label>
+                <input id="ct-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
+              {formError && (
+                <p className="ss-field__error" role="alert">
+                  {formError}
+                </p>
+              )}
               <div>
-                <Button type="submit" size="lg" icon="send">
-                  Send message
+                <Button type="submit" size="lg" icon="send" disabled={sending}>
+                  {sending ? 'Sending…' : 'Send message'}
                 </Button>
               </div>
             </form>

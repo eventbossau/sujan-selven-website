@@ -26,7 +26,7 @@ export default function PrivacyPage() {
         lead="How personal information is handled on this website."
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,64px)' }}>
-        <div className="ss-container ss-container--narrow" style={{ padding: 0 }}>
+        <div className="ss-container ss-container--narrow">
           <ArticleBody>
             <p className="ss-prose__lead">
               This page explains what information may be collected through sujanselven.org and how

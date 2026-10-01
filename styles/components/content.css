@@ -30,8 +30,9 @@
 .ss-hero--page .ss-hero__title,.ss-hero--issue .ss-hero__title,.ss-hero--article .ss-hero__title{font-family:var(--font-display);font-weight:400;font-size:var(--fs-display-m);line-height:.95;text-transform:uppercase;color:var(--text-strong);text-wrap:balance}
 .ss-hero--page .ss-hero__title em,.ss-hero--issue .ss-hero__title em{font-style:normal;color:var(--green-500)}
 .ss-hero__lead{font-size:var(--fs-lead);line-height:1.45;color:var(--text-body);max-width:52ch;text-wrap:pretty}
-.ss-hero--page .ss-hero__decor{position:absolute;right:-80px;top:40px;width:380px;color:var(--green-100)}
-@media (max-width:900px){.ss-hero--page .ss-hero__in{grid-template-columns:1fr}}
+.ss-hero--page .ss-hero__decor{position:absolute;right:-80px;top:40px;width:380px;color:var(--green-100);z-index:0;pointer-events:none}
+.ss-hero--page .ss-hero__text,.ss-hero--page .ss-hero__in{position:relative;z-index:1}
+@media (max-width:900px){.ss-hero--page .ss-hero__in{grid-template-columns:1fr}.ss-hero--page .ss-hero__decor{right:-35%;top:auto;bottom:-12%;width:72vw}}
 /* Hero — issue */
 .ss-hero--issue{background:var(--white);border-top:8px solid var(--issue,var(--green-500))}
 .ss-hero--issue .ss-hero__in{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:center;padding-block:clamp(40px,5vw,72px) clamp(56px,7vw,112px)}

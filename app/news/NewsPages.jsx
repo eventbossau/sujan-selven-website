@@ -8,7 +8,7 @@ import { NewsCard } from '@/components/cards/NewsCard.jsx';
 import { Pagination } from '@/components/navigation/Pagination.jsx';
 import { ArticleBody } from '@/components/article/ArticleBody.jsx';
 import { QuoteBlock } from '@/components/cards/QuoteBlock.jsx';
-import { SocialLinks } from '@/components/core/SocialLinks.jsx';
+import { ShareLinks } from '@/components/core/ShareLinks.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
 import { TextLink } from '@/components/core/TextLink.jsx';
 import { KIT } from '@/lib/data';
@@ -121,6 +121,7 @@ export function NewsPage() {
 
 export function ArticlePage() {
   const go = useGo();
+  const articleTitle = '[Article headline in sentence case, up to two lines]';
   return (
     <>
       <Hero
@@ -136,7 +137,7 @@ export function ArticlePage() {
           />
         }
         overline={<Tag tone="brand">Community</Tag>}
-        title="[Article headline in sentence case, up to two lines]"
+        title={articleTitle}
         lead="[Standfirst — the human consequence in one sentence.]"
         meta={[
           { icon: 'calendar', label: '[DD Month YYYY]' },
@@ -188,11 +189,9 @@ export function ArticlePage() {
             <h3>[Sub-heading]</h3>
             <p>[Closing paragraph with a clear next step.]</p>
             <hr />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <span className="ss-overline" style={{ color: 'var(--ink)' }}>
-                Share
-              </span>
-              <SocialLinks links={KIT.socials} />
+            <div className="ss-share">
+              <span className="ss-overline">Share</span>
+              <ShareLinks title={articleTitle} />
             </div>
           </ArticleBody>
         </div>

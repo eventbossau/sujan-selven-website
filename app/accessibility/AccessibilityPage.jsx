@@ -26,7 +26,7 @@ export default function AccessibilityPage() {
         lead="This site should work for as many people as possible — including people who use keyboards, screen readers, or need clear contrast."
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,64px)' }}>
-        <div className="ss-container ss-container--narrow" style={{ padding: 0 }}>
+        <div className="ss-container ss-container--narrow">
           <ArticleBody>
             <p className="ss-prose__lead">
               Accessibility is part of treating people with respect. We aim to make
