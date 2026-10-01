@@ -1,0 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,500;0,600;0,700;1,400&display=swap");
+/* Supplied brand fonts. Roboto Condensed Regular (400) is the supplied file; 500–700 + italic load from Google Fonts until the full family is supplied. */
+@font-face{font-family:"Anton";src:url("/fonts/Anton-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Roboto Condensed";src:url("/fonts/RobotoCondensed-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}

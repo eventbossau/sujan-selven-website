@@ -1,0 +1,19 @@
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/base.css";
+@import "./components/brand.css";
+@import "./components/core.css";
+@import "./components/forms.css";
+@import "./components/navigation.css";
+@import "./components/content.css";
+@import "./components/cards.css";
+@import "./components/article.css";
+
+/* Kit-only helpers used by Get Involved / Contact page layouts (from ui_kits/website/index.html) */
+.kit-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px}
+.kit-action{position:relative;display:grid;gap:12px;align-content:start;min-height:100%;padding:28px;border:1px solid var(--border-default);border-top:6px solid var(--green-500);color:var(--ink);text-decoration:none;background:var(--white);transition:background-color var(--dur-base) var(--ease-out)}
+.kit-action>.ss-icon:first-child{color:var(--green-700)}.kit-action:hover{background:var(--green-50);color:var(--ink)}
+.kit-action__arrow{margin-top:8px;color:var(--green-700);transition:transform var(--dur-base) var(--ease-out)}.kit-action:hover .kit-action__arrow{transform:translateX(4px)}
+@media (max-width:900px){.kit-col-4{grid-column:span 12!important}}

@@ -1,0 +1,63 @@
+:root{
+/* Brand greens — sampled from the campaign identity PDF */
+--green-50:#EEF8F1;--green-100:#D6EFDF;--green-200:#ACDEBC;
+--green-500:#02A651;/* Greens green — brand fill, large display only on white (3:1) */
+--green-700:#037A3D;/* accessible action green — buttons, links, green text (5.5:1 on white). Campaign PDF mid-green #037F40 nudged darker to pass 4.5:1 */
+--green-700-print:#037F40;
+--green-900:#094325;/* deep green — footer, dark sections, hover */
+--green-950:#062E19;
+--leaf-500:#39B54A;--lime-400:#8DC63F;--olive-600:#7A9038;
+/* Campaign accents — used selectively for issues, categories, highlights */
+--orange-500:#EA9306;--gold-400:#FBB040;--red-500:#DE3E16;--teal-600:#028985;--teal-900:#015243;
+/* Neutrals */
+--white:#FFFFFF;--paper:#F8F8F8;--paper-2:#F4F4F4;--grey-200:#E6E6E4;--grey-300:#CFCFCC;--grey-500:#939598;--grey-600:#66686B;--grey-800:#2E2F31;--ink:#111111;--black:#000000;
+/* Feedback */
+--error-600:#B3300F;--error-50:#FDF0EC;--success-700:#037A3D;--success-50:#EEF8F1;--warning-500:#EA9306;--warning-50:#FEF5E6;
+
+/* ——— Semantic roles ——— */
+--surface-page:var(--white);
+--surface-subtle:var(--paper);
+--surface-muted:var(--paper-2);
+--surface-brand:var(--green-500);
+--surface-brand-strong:var(--green-700);
+--surface-deep:var(--green-900);
+--surface-inverse:var(--ink);
+--surface-card:var(--white);
+--text-strong:var(--ink);
+--text-body:var(--grey-800);
+--text-muted:var(--grey-600);
+--text-brand:var(--green-700);
+--text-on-brand:var(--white);
+--text-on-deep:var(--white);
+--text-on-deep-muted:#C9DCCF;
+--text-link:var(--green-700);
+--text-link-hover:var(--green-900);
+--border-subtle:var(--grey-200);
+--border-default:var(--grey-300);
+--border-control:var(--grey-600);
+--border-strong:var(--ink);
+--border-on-deep:rgba(255,255,255,.22);
+--action-primary:var(--green-700);
+--action-primary-hover:var(--green-900);
+--action-primary-active:var(--green-950);
+--action-secondary-ink:var(--ink);
+--action-disabled-bg:var(--grey-200);
+--action-disabled-fg:#8A8C8F;
+--focus-ring:var(--ink);
+--focus-ring-on-dark:var(--gold-400);
+--highlight:var(--gold-400);
+
+/* Issue / priority accents — fill + text-safe ink + tint */
+--issue-housing:var(--red-500);--issue-housing-ink:#B3300F;--issue-housing-tint:#FCEDE8;
+--issue-energy:var(--teal-600);--issue-energy-ink:#016E6A;--issue-energy-tint:#E6F4F3;
+--issue-cost:var(--orange-500);--issue-cost-ink:#8A5600;--issue-cost-tint:#FEF4E4;
+--issue-community:var(--olive-600);--issue-community-ink:#55662A;--issue-community-tint:#F1F4E8;
+--issue-brand:var(--green-500);--issue-brand-ink:var(--green-700);--issue-brand-tint:var(--green-50);
+}
+/* Tone scopes — set data-tone on any element (Tag, PriorityCard, sections) to theme it with a pillar accent */
+[data-tone="brand"]{--tone:var(--green-500);--tone-ink:var(--green-700);--tone-tint:var(--green-50)}
+[data-tone="housing"]{--tone:var(--issue-housing);--tone-ink:var(--issue-housing-ink);--tone-tint:var(--issue-housing-tint)}
+[data-tone="energy"]{--tone:var(--issue-energy);--tone-ink:var(--issue-energy-ink);--tone-tint:var(--issue-energy-tint)}
+[data-tone="cost"]{--tone:var(--issue-cost);--tone-ink:var(--issue-cost-ink);--tone-tint:var(--issue-cost-tint)}
+[data-tone="community"]{--tone:var(--issue-community);--tone-ink:var(--issue-community-ink);--tone-tint:var(--issue-community-tint)}
+[data-tone="neutral"]{--tone:var(--grey-500);--tone-ink:var(--grey-600);--tone-tint:var(--paper-2)}

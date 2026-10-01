@@ -1,0 +1,190 @@
+'use client';
+
+import React from 'react';
+import { Hero } from '@/components/content/Hero.jsx';
+import { Breadcrumbs } from '@/components/navigation/Breadcrumbs.jsx';
+import { RadioGroup } from '@/components/forms/RadioGroup.jsx';
+import { TextField } from '@/components/forms/TextField.jsx';
+import { TextArea } from '@/components/forms/TextArea.jsx';
+import { Checkbox } from '@/components/forms/Checkbox.jsx';
+import { Button } from '@/components/core/Button.jsx';
+import { SocialLinks } from '@/components/core/SocialLinks.jsx';
+import { Icon } from '@/components/core/Icon.jsx';
+import { KIT } from '@/lib/data';
+import { useGo } from '@/components/kit/Shared.jsx';
+
+export default function ContactPage() {
+  const go = useGo();
+  const [type, setType] = React.useState('general');
+  const [errors, setErrors] = React.useState({});
+  const [sent, setSent] = React.useState(false);
+  const submit = (e) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const er = {};
+    if (!f.get('name')) er.name = 'Enter your name';
+    if (!/^\S+@\S+\.\S+$/.test(f.get('email') || ''))
+      er.email = 'Enter a valid email address, like name@example.com';
+    if (!f.get('message')) er.message = 'Tell us how we can help';
+    setErrors(er);
+    if (!Object.keys(er).length) setSent(true);
+  };
+  const info = [
+    { icon: 'mail', l: 'Email', v: '[email@domain]' },
+    { icon: 'phone', l: 'Phone', v: '[phone]' },
+    { icon: 'map-pin', l: 'Office', v: '[Office address — by appointment]' },
+  ];
+  return (
+    <>
+      <Hero
+        variant="page"
+        breadcrumbs={
+          <Breadcrumbs
+            items={[
+              { label: 'Home', href: '/', key: 'home' },
+              { label: 'Contact' },
+            ]}
+            onNavigate={(k) => go(k)}
+          />
+        }
+        overline="Contact"
+        title={
+          <>
+            Let’s <em>talk</em>
+          </>
+        }
+        lead="Got a question, an idea or a local issue? Get in touch — every message is read."
+      />
+      <section className="ss-section" style={{ paddingTop: 'clamp(40px,5vw,72px)' }}>
+        <div
+          className="ss-container"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,360px),1fr))',
+            gap: 'clamp(40px,7vw,120px)',
+            alignItems: 'start',
+          }}
+        >
+          {sent ? (
+            <div
+              role="status"
+              style={{
+                gridColumn: 'span 1',
+                borderTop: '6px solid var(--green-500)',
+                paddingTop: 32,
+                display: 'grid',
+                gap: 16,
+              }}
+            >
+              <h2 className="ss-display-s">Message sent</h2>
+              <p className="ss-lead">
+                Thanks for getting in touch. [Expected response time to be confirmed.]
+              </p>
+              <div>
+                <Button variant="secondary" onClick={() => setSent(false)}>
+                  Send another message
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <form noValidate onSubmit={submit} style={{ display: 'grid', gap: 24 }}>
+              <RadioGroup
+                name="type"
+                legend="What’s it about?"
+                value={type}
+                onChange={setType}
+                options={[
+                  { value: 'general', label: 'General enquiry' },
+                  {
+                    value: 'issue',
+                    label: 'Local issue',
+                    description: 'In your street or suburb',
+                  },
+                  { value: 'volunteer', label: 'Volunteering' },
+                  { value: 'media', label: 'Media' },
+                ]}
+              />
+              <TextField
+                name="name"
+                label="Your name"
+                required
+                autoComplete="name"
+                error={errors.name}
+              />
+              <div className="kit-2col">
+                <TextField
+                  name="email"
+                  label="Email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  error={errors.email}
+                />
+                <TextField
+                  name="phone"
+                  label="Phone"
+                  type="tel"
+                  hint="Optional"
+                  autoComplete="tel"
+                />
+              </div>
+              {type === 'issue' && (
+                <TextField
+                  name="suburb"
+                  label="Suburb"
+                  hint="Helps us understand where the issue is"
+                />
+              )}
+              <TextArea
+                name="message"
+                label="Message"
+                required
+                rows={7}
+                error={errors.message}
+              />
+              <Checkbox
+                id="ct-updates"
+                name="updates"
+                label="I’d also like occasional email updates"
+              />
+              <div>
+                <Button type="submit" size="lg" icon="send">
+                  Send message
+                </Button>
+              </div>
+            </form>
+          )}
+          <aside
+            style={{
+              display: 'grid',
+              gap: 32,
+              background: 'var(--surface-subtle)',
+              padding: 'clamp(24px,3vw,40px)',
+            }}
+          >
+            <h2 className="ss-display-xs">Other ways to reach Sujan</h2>
+            <dl style={{ margin: 0, display: 'grid', gap: 20 }}>
+              {info.map((i) => (
+                <div key={i.l} style={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: 12 }}>
+                  <Icon name={i.icon} size={22} style={{ color: 'var(--green-700)' }} />
+                  <div>
+                    <dt className="ss-overline" style={{ color: 'var(--ink)' }}>
+                      {i.l}
+                    </dt>
+                    <dd style={{ margin: '4px 0 0', fontSize: 'var(--fs-body)' }}>{i.v}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
+            <div style={{ display: 'grid', gap: 12 }}>
+              <p className="ss-overline" style={{ color: 'var(--ink)' }}>
+                Follow
+              </p>
+              <SocialLinks links={KIT.socials.slice(0, 3)} />
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  );
+}

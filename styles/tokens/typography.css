@@ -1,0 +1,25 @@
+:root{
+--font-display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+--font-body:"Roboto Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+--fw-regular:400;/* @kind other */--fw-medium:500;/* @kind other */--fw-semibold:600;/* @kind other */--fw-bold:700;/* @kind other */
+/* Display — Anton, always uppercase */
+--fs-display-xl:clamp(3.25rem,1.6rem + 6.6vw,9rem);/* @kind other *//* home hero */
+--fs-display-l:clamp(2.75rem,1.6rem + 4.6vw,6.5rem);/* @kind other *//* campaign statements, issue hero */
+--fs-display-m:clamp(2.375rem,1.5rem + 3.4vw,5rem);/* @kind other *//* page titles (h1) */
+--fs-display-s:clamp(1.875rem,1.35rem + 2.1vw,3.5rem);/* @kind other *//* section headings (h2) */
+--fs-display-xs:clamp(1.5rem,1.25rem + 1vw,2.25rem);/* @kind other *//* sub-sections, card titles (h3) */
+--fs-stat:clamp(3rem,2rem + 4vw,6rem);/* @kind other */
+/* Text — Roboto Condensed */
+--fs-heading:1.375rem;/* @kind other *//* 22 — h4, bold */
+--fs-lead:clamp(1.1875rem,1.05rem + .55vw,1.5rem);/* @kind other *//* 19→24 */
+--fs-body-l:1.1875rem;/* @kind other *//* 19 — article */
+--fs-body:1.0625rem;/* @kind other *//* 17 — default */
+--fs-small:.9375rem;/* @kind other *//* 15 — UI, cards */
+--fs-meta:.875rem;/* @kind other *//* 14 — dates, captions */
+--fs-overline:.8125rem;/* @kind other *//* 13 — eyebrow labels, uppercase */
+--lh-display:.94;/* @kind other */--lh-tight:1.1;/* @kind other */--lh-snug:1.3;/* @kind other */--lh-body:1.55;/* @kind other */--lh-article:1.68;/* @kind other */
+--tracking-display:.004em;/* @kind other */--tracking-overline:.14em;/* @kind other */--tracking-button:.06em;/* @kind other */--tracking-nav:.02em;/* @kind other */
+--measure:68ch;/* @kind other */--measure-narrow:52ch;/* @kind other */
+/* Semantic aliases */
+--type-hero:var(--fs-display-xl);/* @kind other */--type-h1:var(--fs-display-m);/* @kind other */--type-h2:var(--fs-display-s);/* @kind other */--type-h3:var(--fs-display-xs);/* @kind other */--type-h4:var(--fs-heading);/* @kind other */
+}
