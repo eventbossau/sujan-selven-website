@@ -10,9 +10,14 @@ export function SiteFooter({
   socials = [],
   statement = true,
   acknowledgement = 'Sujan Selven acknowledges the Traditional Custodians of the land on which we live and work, the Darug people, and pays respect to Elders past and present. Sovereignty was never ceded.',
-  authorisation = 'Authorised by N. Ward for The Greens NSW, 19/1 Hordern Place, Camperdown NSW 2050.',
+  authorisation = 'Authorised by N. Ward for The Greens NSW. 19/1 Hordern Place Camperdown NSW 2050',
   about = 'Greens councillor and candidate for Prospect, standing with the people of Western Sydney.',
-  contact = { email: 'info@sujanselven.org', phone: '0421 832 255', phoneHref: 'tel:+61421832255', office: 'Western Sydney, NSW' },
+  contact = {
+    email: 'info@sujanselven.org',
+    phone: '0421 832 255',
+    phoneHref: 'tel:+61421832255',
+    office: 'Office 1, Level 1/27-30 Portico Parade, Toongabbie NSW 2146',
+  },
 }) {
   const go = (key, href) => (e) => { if (onNavigate) { e.preventDefault(); onNavigate(key, href); } };
   return (
