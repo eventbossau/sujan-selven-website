@@ -17,7 +17,6 @@ export default function AboutPage() {
   const go = useGo();
   const K = KIT;
   const copy = draft.about;
-  const milestones = ['[Year]', '[Year]', '[Year]', '[Year]'];
   return (
     <>
       <Hero
@@ -33,7 +32,7 @@ export default function AboutPage() {
         }
         title={
           <>
-            Grounded in <em>Cumberland</em>
+            Grounded in <em>Western Sydney</em>
           </>
         }
         lead={copy.heroLead}
@@ -45,12 +44,23 @@ export default function AboutPage() {
       />
       <section className="ss-section">
         <div className="ss-container ss-container--narrow">
-          <div className="ss-prose" style={{ marginInline: 'auto' }}>
-            <p className="ss-prose__lead">{copy.opening}</p>
-            <h2>Background</h2>
-            <p>{copy.background}</p>
-            <h2>Experience</h2>
-            <p>{copy.experience}</p>
+          <div className="ss-about-block">
+            <h2 className="ss-display-s">My story</h2>
+            {copy.myStory.map((p) => (
+              <p key={p.slice(0, 32)}>{p}</p>
+            ))}
+          </div>
+          <div className="ss-about-block">
+            <h2 className="ss-display-s">Background</h2>
+            {copy.background.map((p) => (
+              <p key={p.slice(0, 32)}>{p}</p>
+            ))}
+          </div>
+          <div className="ss-about-block">
+            <h2 className="ss-display-s">Experience</h2>
+            {copy.experience.map((p) => (
+              <p key={p.slice(0, 32)}>{p}</p>
+            ))}
           </div>
         </div>
       </section>
@@ -68,18 +78,23 @@ export default function AboutPage() {
         <div className="ss-container">
           <SplitSection
             imageSide="right"
-            media={<ImagePlaceholder label="Sujan at a community event — to be supplied" ratio="4/5" />}
+            media={<ImagePlaceholder label={copy.photoCaption} ratio="4/5" />}
             overline="In the community"
             title={copy.communityHeadline}
           >
-            <p>{copy.communityBody[0]}</p>
-            <p>{copy.communityBody[1]}</p>
+            {copy.communityBody.map((p) => (
+              <p key={p.slice(0, 32)}>{p}</p>
+            ))}
           </SplitSection>
         </div>
       </section>
       <section className="ss-section" style={{ background: 'var(--surface-subtle)' }}>
         <div className="ss-container">
-          <SectionHeading overline="Milestones" title="Along the way" />
+          <SectionHeading
+            overline="Milestones"
+            title="Along the way"
+            intro="Twelve years, three levels of government, and a council seat won in 2024."
+          />
           <ol
             style={{
               listStyle: 'none',
@@ -90,9 +105,9 @@ export default function AboutPage() {
               gap: 24,
             }}
           >
-            {milestones.map((y, i) => (
+            {K.milestones.map((m) => (
               <li
-                key={i}
+                key={m.year + m.title}
                 style={{
                   borderTop: '4px solid var(--ink)',
                   paddingTop: 16,
@@ -108,11 +123,11 @@ export default function AboutPage() {
                     color: 'var(--green-700)',
                   }}
                 >
-                  {y}
+                  {m.year}
                 </span>
-                <span className="ss-h4">[Milestone]</span>
+                <span className="ss-h4">{m.title}</span>
                 <span className="ss-small" style={{ color: 'var(--text-body)' }}>
-                  [One-line description]
+                  {m.text}
                 </span>
               </li>
             ))}
@@ -121,11 +136,7 @@ export default function AboutPage() {
       </section>
       <section className="ss-section">
         <div className="ss-container">
-          <QuoteBlock
-            variant="feature"
-            quote="[Approved quote from Sujan about why the people matter]"
-            name="Sujan Selven"
-          />
+          <QuoteBlock variant="feature" quote={copy.quote} name="Sujan Selven" />
         </div>
       </section>
       <section className="ss-section" style={{ paddingTop: 0 }}>
@@ -149,12 +160,15 @@ export default function AboutPage() {
           </div>
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
             <Button {...linkTo(go, 'priorities')} icon="arrow-right">
-              His priorities
+              My priorities
             </Button>
             <Button variant="secondary" {...linkTo(go, 'community')}>
               Community work
             </Button>
           </div>
+        </div>
+        <div className="ss-container" style={{ marginTop: 32 }}>
+          <p className="ss-meta">{copy.closingLine}</p>
         </div>
       </section>
     </>

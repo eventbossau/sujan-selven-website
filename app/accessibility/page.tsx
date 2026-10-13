@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import AccessibilityPage from './AccessibilityPage.jsx';
+import { draft } from '@/lib/copy';
 
 export const metadata: Metadata = {
-  title: 'Accessibility — Sujan Selven',
-  description:
-    'Accessibility information for Sujan Selven’s website — because the people matter.',
+  title: { absolute: draft.meta.accessibility.title },
+  description: draft.meta.accessibility.description,
 };
 
 export default function Page() {

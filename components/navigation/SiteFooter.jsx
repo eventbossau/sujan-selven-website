@@ -5,7 +5,15 @@ import { GreensMark } from '../brand/GreensMark.jsx';
 import { DoubleTriangle } from '../brand/DoubleTriangle.jsx';
 import { SocialLinks } from '../core/SocialLinks.jsx';
 import { NAV_ITEMS, PRIORITY_LINKS } from './nav-data.js';
-export function SiteFooter({ onNavigate, socials = [], statement = true, acknowledgement = 'Sujan Selven acknowledges the Traditional Custodians of the land on which we live and work, the Darug people, and pays respect to Elders past and present. Sovereignty was never ceded.', authorisation = 'Authorised by The Greens NSW.', about = 'Community worker and human rights advocate standing with the people of Cumberland.', contact = { email: 'info@sujanselven.org', phone: '421832255', office: 'Sydney, Sri Lanka' } }) {
+export function SiteFooter({
+  onNavigate,
+  socials = [],
+  statement = true,
+  acknowledgement = 'Sujan Selven acknowledges the Traditional Custodians of the land on which we live and work, the Darug people, and pays respect to Elders past and present. Sovereignty was never ceded.',
+  authorisation = 'Authorised by N. Ward for The Greens NSW, 19/1 Hordern Place, Camperdown NSW 2050.',
+  about = 'Greens councillor and candidate for Prospect, standing with the people of Western Sydney.',
+  contact = { email: 'info@sujanselven.org', phone: '0421 832 255', phoneHref: 'tel:+61421832255', office: 'Western Sydney, NSW' },
+}) {
   const go = (key, href) => (e) => { if (onNavigate) { e.preventDefault(); onNavigate(key, href); } };
   return (
     <footer className="ss-footer ss-on-dark">

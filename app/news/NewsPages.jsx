@@ -7,11 +7,11 @@ import { Tag } from '@/components/core/Tag.jsx';
 import { NewsCard } from '@/components/cards/NewsCard.jsx';
 import { Pagination } from '@/components/navigation/Pagination.jsx';
 import { ArticleBody } from '@/components/article/ArticleBody.jsx';
-import { QuoteBlock } from '@/components/cards/QuoteBlock.jsx';
 import { ShareLinks } from '@/components/core/ShareLinks.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
 import { TextLink } from '@/components/core/TextLink.jsx';
-import { KIT } from '@/lib/data';
+import { Button } from '@/components/core/Button.jsx';
+import { KIT, newsBySlug } from '@/lib/data';
 import { NewsGridCard, linkTo, useGo } from '@/components/kit/Shared.jsx';
 
 export function NewsPage() {
@@ -92,7 +92,7 @@ export function NewsPage() {
                 date={lead.date}
                 title={lead.title}
                 excerpt={lead.excerpt}
-                {...linkTo(go, 'news/article')}
+                {...linkTo(go, 'news/' + lead.slug)}
               />
             </div>
           )}
@@ -119,9 +119,14 @@ export function NewsPage() {
   );
 }
 
-export function ArticlePage() {
+export function ArticlePage({ slug }) {
   const go = useGo();
-  const articleTitle = '[Article headline in sentence case, up to two lines]';
+  const item = newsBySlug(slug) || KIT.news[0];
+  const related = KIT.news.filter((n) => n.slug !== item.slug).slice(0, 3);
+  const meta = [{ icon: 'map-pin', label: 'Prospect / Western Sydney' }];
+  if (item.date) meta.unshift({ icon: 'calendar', label: item.date });
+  const cta = item.cta || { label: 'See priorities', route: 'priorities' };
+
   return (
     <>
       <Hero
@@ -131,25 +136,23 @@ export function ArticlePage() {
             items={[
               { label: 'Home', href: '/', key: 'home' },
               { label: 'News', href: '/news', key: 'news' },
-              { label: '[Article]' },
+              { label: item.title },
             ]}
             onNavigate={(k) => go(k)}
           />
         }
-        overline={<Tag tone="brand">Community</Tag>}
-        title={articleTitle}
-        lead="[Standfirst — the human consequence in one sentence.]"
-        meta={[
-          { icon: 'calendar', label: '[DD Month YYYY]' },
-          { icon: 'clock', label: '[X] min read' },
-          { icon: 'map-pin', label: '[Suburb]' },
-        ]}
-        image={{
-          src: KIT.P + 'portrait-blazer-01.jpg',
-          alt: 'Sujan Selven',
-          position: '50% 28%',
-          caption: '[Photo caption and credit]',
-        }}
+        overline={<Tag tone={KIT.catTone[item.category] || 'brand'}>{item.category}</Tag>}
+        title={item.title}
+        lead={item.excerpt}
+        meta={meta}
+        image={
+          item.image || {
+            src: KIT.P + 'portrait-blazer-01.jpg',
+            alt: 'Sujan Selven',
+            position: '50% 28%',
+            caption: item.ph,
+          }
+        }
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,64px)' }}>
         <div
@@ -157,41 +160,26 @@ export function ArticlePage() {
           style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', justifyItems: 'center' }}
         >
           <ArticleBody>
-            <p className="ss-prose__lead">
-              [Opening paragraph: who is affected and what changes for them.]
-            </p>
-            <p>
-              [Body paragraph with the detail. Keep sentences short and local. Link to related{' '}
-              <a
-                href="/priorities"
-                onClick={(e) => {
-                  e.preventDefault();
-                  go('priorities');
-                }}
-              >
-                priorities
-              </a>{' '}
-              where relevant.]
-            </p>
-            <h2>[Section heading]</h2>
-            <p>[Body paragraph.]</p>
-            <ul>
-              <li>[What this means for residents]</li>
-              <li>[What happens next]</li>
-              <li>[How people can get involved]</li>
-            </ul>
-            <QuoteBlock
-              variant="inline"
-              quote="[Approved quote]"
-              name="[Name]"
-              role="[Role or suburb]"
-            />
-            <h3>[Sub-heading]</h3>
-            <p>[Closing paragraph with a clear next step.]</p>
+            <p className="ss-prose__lead">{item.excerpt}</p>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 12,
+                marginTop: 8,
+              }}
+            >
+              <Button {...linkTo(go, cta.route)} icon="arrow-right">
+                {cta.label}
+              </Button>
+              <Button variant="secondary" {...linkTo(go, 'contact')}>
+                Contact the team
+              </Button>
+            </div>
             <hr />
             <div className="ss-share">
               <span className="ss-overline">Share</span>
-              <ShareLinks title={articleTitle} />
+              <ShareLinks title={item.title} />
             </div>
           </ArticleBody>
         </div>
@@ -210,7 +198,7 @@ export function ArticlePage() {
               gap: 32,
             }}
           >
-            {KIT.news.slice(3, 6).map((n) => (
+            {related.map((n) => (
               <NewsGridCard key={n.id} item={n} go={go} />
             ))}
           </div>

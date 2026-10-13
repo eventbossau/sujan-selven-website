@@ -18,11 +18,12 @@ export default function HomePage() {
   const go = useGo();
   const K = KIT;
   const copy = draft.home;
+  const feature = K.news[0];
   return (
     <>
       <Hero
         variant="campaign"
-        overline="Sujan Selven · Cumberland"
+        overline={copy.heroOverline}
         title={
           <>
             Because the <em>people</em> matter
@@ -31,13 +32,13 @@ export default function HomePage() {
         lead={copy.heroLead}
         image={{
           src: K.P + 'portrait-blazer-03.jpg',
-          alt: 'Sujan Selven standing in a local park, smiling',
+          alt: 'Sujan Selven, Greens candidate for Prospect, standing in a local park',
           position: '50% 22%',
         }}
         actions={
           <>
             <Button variant="inverse" icon="arrow-right" size="lg" {...linkTo(go, 'get-involved')}>
-              Get involved
+              Join the campaign
             </Button>
             <Button variant="secondary" size="lg" {...linkTo(go, 'about')}>
               Meet Sujan
@@ -55,15 +56,11 @@ export default function HomePage() {
             alignItems: 'end',
           }}
         >
-          <p className="ss-display-l" style={{ maxWidth: '13ch' }}>
-            Every issue matters because of the <span className="ss-accent">people</span> it affects.
+          <p className="ss-display-l" style={{ maxWidth: '16ch' }}>
+            Every issue is about the <span className="ss-accent">people</span> it affects.
           </p>
           <div style={{ display: 'grid', gap: 20 }}>
-            <p className="ss-lead">
-              From healthcare and housing to transport, education and local communities — the focus
-              is on clear, human outcomes people can understand.
-            </p>
-            <p className="ss-body">Every message changes with the issue, but the reason stays the same.</p>
+            <p className="ss-lead">{copy.introBody}</p>
           </div>
         </Reveal>
       </section>
@@ -76,12 +73,13 @@ export default function HomePage() {
               position: '50% 30%',
             }}
             frame="bl"
-            overline="Meet Sujan"
+            overline={copy.meetOverline}
             title={copy.meetHeadline}
-            actions={<TextLink {...linkTo(go, 'about')}>Read Sujan’s story</TextLink>}
+            actions={<TextLink {...linkTo(go, 'about')}>Read my story</TextLink>}
           >
-            <p>{copy.meetBody[0]}</p>
-            <p>{copy.meetBody[1]}</p>
+            {copy.meetBody.map((p) => (
+              <p key={p.slice(0, 24)}>{p}</p>
+            ))}
           </SplitSection>
         </div>
       </section>
@@ -90,7 +88,7 @@ export default function HomePage() {
           <SectionHeading
             overline="Priorities"
             title="What matters here"
-            intro="Four areas that shape everyday life across Cumberland."
+            intro={copy.prioritiesIntro}
             action={<TextLink {...linkTo(go, 'priorities')}>All priorities</TextLink>}
           />
           <div
@@ -107,6 +105,7 @@ export default function HomePage() {
                 number={p.n}
                 title={p.title}
                 summary={p.short}
+                cta="Why it matters"
                 {...linkTo(go, 'priorities/' + p.key)}
               />
             ))}
@@ -119,7 +118,7 @@ export default function HomePage() {
             overline="Community"
             title="Out in the neighbourhood"
             intro={copy.communityIntro}
-            action={<TextLink {...linkTo(go, 'community')}>Community work</TextLink>}
+            action={<TextLink {...linkTo(go, 'community')}>See the community work</TextLink>}
           />
           <div
             style={{
@@ -131,14 +130,13 @@ export default function HomePage() {
           >
             {K.stories.map((s, i) => (
               <StoryCard
-                key={i}
+                key={s.title}
                 place={s.place}
+                kicker={s.kicker}
                 title={s.title}
                 text={s.text}
                 ratio={i === 1 ? '4/5' : '1/1'}
-                media={
-                  <ImagePlaceholder label={s.ph} ratio={i === 1 ? '4/5' : '1/1'} />
-                }
+                media={<ImagePlaceholder label={s.ph} ratio={i === 1 ? '4/5' : '1/1'} />}
                 {...linkTo(go, 'community')}
               />
             ))}
@@ -160,17 +158,16 @@ export default function HomePage() {
             }}
           >
             <NewsCard
-              image={{
-                src: K.P + 'portrait-blazer-02.jpg',
-                alt: 'Sujan Selven',
-                position: '50% 30%',
-              }}
-              category="Announcements"
-              categoryTone="neutral"
-              date="[DD Mon YYYY]"
-              title="[Featured headline in sentence case]"
-              excerpt="[Two-sentence summary of the most important current update.]"
-              {...linkTo(go, 'news/article')}
+              image={feature.image}
+              media={
+                feature.image ? null : <ImagePlaceholder label={feature.ph} ratio="3/2" />
+              }
+              category={feature.category}
+              categoryTone={K.catTone[feature.category]}
+              date={feature.date}
+              title={feature.title}
+              excerpt={feature.excerpt}
+              {...linkTo(go, 'news/' + feature.slug)}
             />
             <div>
               {K.news.slice(1, 5).map((n) => (
@@ -188,13 +185,13 @@ export default function HomePage() {
             Be part of <em>it</em>
           </>
         }
-        text="Volunteer, come along to a community event, or simply stay in the loop."
+        text={copy.getInvolvedText}
         actions={
           <>
             <Button variant="inverse" size="lg" icon="arrow-right" {...linkTo(go, 'get-involved')}>
               Volunteer
             </Button>
-            <Button variant="secondary" size="lg" {...linkTo(go, 'get-involved')}>
+            <Button variant="secondary" size="lg" href="/get-involved#updates">
               Stay updated
             </Button>
           </>

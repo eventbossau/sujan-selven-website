@@ -9,11 +9,10 @@ import { Button } from '@/components/core/Button.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
 import { SplitSection } from '@/components/content/SplitSection.jsx';
 import { StatBlock } from '@/components/cards/StatBlock.jsx';
-import { StoryCard } from '@/components/cards/StoryCard.jsx';
 import { ImagePlaceholder } from '@/components/brand/ImagePlaceholder.jsx';
 import { PriorityCard } from '@/components/cards/PriorityCard.jsx';
 import { ArticleBody } from '@/components/article/ArticleBody.jsx';
-import { KIT } from '@/lib/data';
+import { KIT, newsForPriority } from '@/lib/data';
 import { NewsGridCard, Reveal, linkTo, useGo } from '@/components/kit/Shared.jsx';
 
 export function PrioritiesPage() {
@@ -33,10 +32,10 @@ export function PrioritiesPage() {
         }
         title={
           <>
-            What <em>matters</em> to Cumberland
+            What <em>matters</em> to Prospect
           </>
         }
-        lead="Every priority starts with the people it affects. Four pillars, one reason."
+        lead="Every priority starts with the people it affects. Four pillars — each ending in a result a household can count."
       />
       <section className="ss-section">
         <div className="ss-container" style={{ display: 'grid' }}>
@@ -75,7 +74,7 @@ export function PrioritiesPage() {
               </div>
               <div style={{ display: 'grid', gap: 20, alignContent: 'start' }}>
                 <Tag tone={p.tone}>{p.title} matters</Tag>
-                <p className="ss-lead">{p.body}</p>
+                <p className="ss-lead">{p.short}</p>
                 <TextLink {...linkTo(go, 'priorities/' + p.key)}>Why it matters</TextLink>
               </div>
             </Reveal>
@@ -90,7 +89,7 @@ export function PrioritiesPage() {
             Tell us what <em>matters</em> to you
           </>
         }
-        text="The issues on this page come from conversations with people across Cumberland."
+        text="The issues on this page come from conversations with people across Prospect and Western Sydney."
         actions={
           <Button variant="inverse" size="lg" icon="arrow-right" {...linkTo(go, 'contact')}>
             Share a local issue
@@ -105,6 +104,7 @@ export function PriorityDetailPage({ pkey }) {
   const go = useGo();
   const p = KIT.priorities.find((x) => x.key === pkey) || KIT.priorities[0];
   const others = KIT.priorities.filter((x) => x.key !== p.key);
+  const relatedNews = newsForPriority(p.key);
   return (
     <>
       <Hero
@@ -132,12 +132,7 @@ export function PriorityDetailPage({ pkey }) {
             Get involved
           </Button>
         }
-        media={
-          <ImagePlaceholder
-            label={'People affected — ' + p.title + ' photo to be supplied'}
-            ratio="4/5"
-          />
-        }
+        media={<ImagePlaceholder label={p.photoCaption} ratio="4/5" />}
       />
       <section className="ss-section">
         <div
@@ -152,40 +147,29 @@ export function PriorityDetailPage({ pkey }) {
             <p className="ss-overline" style={{ marginBottom: 16 }}>
               Why it matters
             </p>
-            <h2 className="ss-display-s">[What’s happening, in one line]</h2>
+            <h2 className="ss-display-s">{p.whyHeading}</h2>
+            <ArticleBody>
+              <p>{p.whyBody}</p>
+            </ArticleBody>
           </div>
-          <ArticleBody>
-            <p>
-              [Context — the issue explained plainly, starting from what people in Cumberland are
-              experiencing.]
+          <div>
+            <p className="ss-overline" style={{ marginBottom: 16 }}>
+              What changes for people
             </p>
-            <ul>
-              <li>[A key fact, written as an outcome for people]</li>
-              <li>[A second key fact]</li>
-              <li>[A third key fact]</li>
-            </ul>
-          </ArticleBody>
+            <ol className="ss-changes">
+              {p.changes.map((c, i) => (
+                <li key={c}>
+                  <span className="ss-changes__n" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="ss-changes__t">{c}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
         <div className="ss-container" style={{ marginTop: 'clamp(40px,5vw,72px)' }}>
-          <StatBlock
-            items={[
-              {
-                value: '[00%]',
-                label: '[What this number means for local people]',
-                source: '[Verified source]',
-              },
-              {
-                value: '[0,000]',
-                label: '[Households / people affected]',
-                source: '[Verified source]',
-              },
-              {
-                value: '[$000]',
-                label: '[Cost to a typical household]',
-                source: '[Verified source]',
-              },
-            ]}
-          />
+          <StatBlock items={p.stats} />
         </div>
       </section>
       <section className="ss-section" style={{ background: 'var(--surface-subtle)' }}>
@@ -196,40 +180,44 @@ export function PriorityDetailPage({ pkey }) {
               alt: 'Sujan Selven',
               position: '50% 30%',
             }}
-            overline="Sujan’s position"
-            title="What Sujan is working towards"
+            overline="What I am working towards"
+            title="I will fight for"
           >
-            <p>{p.body}</p>
-            <p>[Specific commitments or work — approved content to be supplied.]</p>
+            <p>{p.positionIntro}</p>
           </SplitSection>
-        </div>
-      </section>
-      <section className="ss-section">
-        <div className="ss-container">
-          <SectionHeading
-            overline="Community stories"
-            title="The people behind it"
-            action={<TextLink {...linkTo(go, 'community')}>More stories</TextLink>}
-          />
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))',
-              gap: 'clamp(20px,3vw,40px)',
-            }}
-          >
-            {KIT.stories.map((s, i) => (
-              <StoryCard
-                key={i}
-                place={s.place}
-                title={s.title}
-                text={s.text}
-                ratio="1/1"
-                media={<ImagePlaceholder label={s.ph} ratio="1/1" />}
-                {...linkTo(go, 'community')}
-              />
+          <div className="ss-commit">
+            {p.commitments.map((c) => (
+              <div key={c.fight} className="ss-commit__row">
+                <p className="ss-commit__fight">{c.fight}</p>
+                <p className="ss-commit__means">{c.means}</p>
+              </div>
             ))}
           </div>
+          {p.paidFor && (
+            <p className="ss-body" style={{ marginTop: 28, color: 'var(--text-body)', maxWidth: '62ch' }}>
+              {p.paidFor}
+            </p>
+          )}
+          {p.result && (
+            <div className="ss-result">
+              <span className="ss-result__label">The result</span>
+              <p>{p.result.replace(/^The result for Prospect:\s*/i, '')}</p>
+            </div>
+          )}
+          {p.sources?.length > 0 && (
+            <div className="ss-sources">
+              <p className="ss-overline">Sources</p>
+              <ul className="ss-sources__list">
+                {p.sources.map((s) => (
+                  <li key={s.href}>
+                    <a href={s.href} target="_blank" rel="noopener noreferrer">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
       <section className="ss-section" style={{ paddingTop: 0 }}>
@@ -246,8 +234,8 @@ export function PriorityDetailPage({ pkey }) {
               gap: 32,
             }}
           >
-            {KIT.news.slice(0, 3).map((n) => (
-              <NewsGridCard key={n.id} item={{ ...n, category: p.title }} go={go} />
+            {relatedNews.map((n) => (
+              <NewsGridCard key={n.id} item={n} go={go} />
             ))}
           </div>
         </div>
@@ -259,7 +247,7 @@ export function PriorityDetailPage({ pkey }) {
             Because the <em>people</em> matter
           </>
         }
-        text="Add your voice — share how this affects you or your family."
+        text={p.ctaText}
         actions={
           <>
             <Button variant="inverse" size="lg" icon="arrow-right" {...linkTo(go, 'contact')}>

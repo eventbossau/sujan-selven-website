@@ -23,21 +23,21 @@ export default function PrivacyPage() {
           />
         }
         title="Privacy"
-        lead="How personal information is handled on this website."
+        lead="How the Sujan Selven campaign collects, uses and looks after your personal information."
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,64px)' }}>
         <div className="ss-container ss-container--narrow">
           <ArticleBody>
             <p className="ss-prose__lead">
               This page explains what information may be collected through sujanselven.org and how
-              it is used. It is plain-language guidance for visitors and should be reviewed by the
-              campaign before launch.
+              it is used.
             </p>
 
             <h2>Who this applies to</h2>
             <p>
-              This website is maintained for Sujan Selven’s public and community work in Cumberland
-              / Western Sydney, in connection with The Greens NSW.
+              This website is maintained for Sujan Selven’s public work as Greens councillor for
+              Wentworthville Ward and candidate for Prospect at the 2027 NSW election, in connection
+              with The Greens NSW.
             </p>
 
             <h2>What we collect</h2>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
             </ul>
             <p>
               That information can include your name, email address, phone number, postcode,
-              suburb, and the content of your message or enquiry.
+              suburb, languages you speak, and the content of your message or enquiry.
             </p>
 
             <h2>How we use it</h2>
@@ -57,12 +57,34 @@ export default function PrivacyPage() {
             <ul>
               <li>Respond to questions, local issues and media enquiries</li>
               <li>Follow up with volunteers and people who ask to stay updated</li>
-              <li>Understand community concerns across Cumberland</li>
+              <li>Understand community concerns across Prospect and Western Sydney</li>
             </ul>
             <p>
               We do not sell your personal information. We only share it where needed to run the
               campaign or respond to you (for example, within the campaign team), or where the law
               requires it.
+            </p>
+
+            <h2>Your rights</h2>
+            <p>
+              You can ask to see, correct or delete the details we hold about you. Email{' '}
+              <TextLink href={'mailto:' + KIT.contact.email} arrow={false}>
+                {KIT.contact.email}
+              </TextLink>
+              .
+            </p>
+
+            <h2>How long details are kept</h2>
+            <p>
+              We keep your details only as long as the campaign needs them, or until you ask us to
+              delete them.
+            </p>
+
+            <h2>Security and tools</h2>
+            <p>
+              Form submissions are sent by email through Resend. The website is hosted on Vercel.
+              Like most websites, hosting tools may record basic technical details such as browser
+              type and pages visited. We do not run third-party advertising cookies on this site.
             </p>
 
             <h2>Emails and updates</h2>
@@ -71,16 +93,9 @@ export default function PrivacyPage() {
               those emails, or by contacting us.
             </p>
 
-            <h2>Website technical data</h2>
+            <h2>Complaints</h2>
             <p>
-              Like most websites, hosting and analytics tools may record basic technical details
-              such as browser type, pages visited, and approximate location. This helps keep the
-              site working and improve it over time.
-            </p>
-
-            <h2>Contact about privacy</h2>
-            <p>
-              For privacy questions or to ask about your information, email{' '}
+              If you have a concern about how your information is handled, email{' '}
               <TextLink href={'mailto:' + KIT.contact.email} arrow={false}>
                 {KIT.contact.email}
               </TextLink>

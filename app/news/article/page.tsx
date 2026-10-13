@@ -1,5 +1,6 @@
-import { ArticlePage } from '../NewsPages.jsx';
+import { redirect } from 'next/navigation';
+import { news } from '@/lib/data';
 
 export default function Page() {
-  return <ArticlePage />;
+  redirect('/news/' + news[0].slug);
 }

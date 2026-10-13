@@ -10,30 +10,19 @@ import { Checkbox } from '@/components/forms/Checkbox.jsx';
 import { Button } from '@/components/core/Button.jsx';
 import { SocialLinks } from '@/components/core/SocialLinks.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
+import { TextLink } from '@/components/core/TextLink.jsx';
 import { KIT } from '@/lib/data';
+import { draft } from '@/lib/copy';
+import { LINKS } from '@/lib/links';
 import { useGo } from '@/components/kit/Shared.jsx';
-
-const HELP_OPTIONS = [
-  'Volunteer at events',
-  'Doorknocking',
-  'Phone calls',
-  'Share a skill',
-  'Just keep me updated',
-];
 
 export default function GetInvolvedPage() {
   const go = useGo();
+  const copy = draft.getInvolved;
   const [errors, setErrors] = React.useState({});
   const [formError, setFormError] = React.useState('');
   const [sending, setSending] = React.useState(false);
   const [sent, setSent] = React.useState(false);
-
-  const actions = [
-    { icon: 'users', t: 'Volunteer', d: 'Doorknock, help at events or lend a skill.', href: '#volunteer' },
-    { icon: 'calendar', t: 'Attend an event', d: 'Meet Sujan and your neighbours.', route: 'community' },
-    { icon: 'mail', t: 'Stay updated', d: 'Occasional news, straight to your inbox.', href: '#volunteer' },
-    { icon: 'send', t: 'Contact the team', d: 'Questions, ideas or a local issue.', route: 'contact' },
-  ];
 
   const submit = async (e) => {
     e.preventDefault();
@@ -57,6 +46,7 @@ export default function GetInvolvedPage() {
       mobile: String(f.get('mobile') || '').trim(),
       postcode: String(f.get('postcode') || '').trim(),
       help: String(f.get('help') || ''),
+      languages: String(f.get('languages') || '').trim(),
       updates: f.get('updates') === 'on',
       company: String(f.get('company') || ''),
     };
@@ -100,10 +90,10 @@ export default function GetInvolvedPage() {
             Be part of <em>it</em>
           </>
         }
-        lead="People make this campaign. Pick what suits you — every bit helps."
+        lead={copy.heroLead}
         image={{
           src: KIT.P + 'portrait-shirt-07.jpg',
-          alt: 'Sujan Selven',
+          alt: copy.photoAlt,
           position: '50% 28%',
         }}
       />
@@ -118,29 +108,34 @@ export default function GetInvolvedPage() {
             gap: 16,
           }}
         >
-          {actions.map((a) => (
-            <li key={a.t}>
-              <a
-                href={a.href || '/' + a.route}
-                onClick={
-                  a.route
-                    ? (e) => {
-                        e.preventDefault();
-                        go(a.route);
-                      }
-                    : undefined
+          {KIT.getInvolvedActions.map((a) => {
+            const href = a.external || a.href || '/' + a.route;
+            const onClick = a.route
+              ? (e) => {
+                  e.preventDefault();
+                  go(a.route);
                 }
-                className="kit-action"
-              >
-                <Icon name={a.icon} size={28} />
-                <span className="ss-display-xs">{a.t}</span>
-                <span className="ss-small" style={{ color: 'var(--text-body)' }}>
-                  {a.d}
-                </span>
-                <Icon name="arrow-right" size={20} className="kit-action__arrow" />
-              </a>
-            </li>
-          ))}
+              : undefined;
+            return (
+              <li key={a.t}>
+                <a
+                  href={href}
+                  onClick={onClick}
+                  className="kit-action"
+                  {...(a.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  <Icon name={a.icon} size={28} />
+                  <span className="ss-display-xs">{a.t}</span>
+                  <span className="ss-small" style={{ color: 'var(--text-body)' }}>
+                    {a.d}
+                  </span>
+                  <Icon name="arrow-right" size={20} className="kit-action__arrow" />
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </section>
       <section className="ss-section" id="volunteer" style={{ background: 'var(--surface-subtle)' }}>
@@ -157,13 +152,13 @@ export default function GetInvolvedPage() {
             <SectionHeading
               overline="Sign up"
               title="Volunteer or stay in touch"
-              intro="Tell us a little about yourself and how you’d like to help. We’ll be in touch."
+              intro={copy.formIntro}
             />
             <SocialLinks
               labelled
               links={KIT.socials.slice(0, 3).map((s) => ({
                 ...s,
-                label: s.network[0].toUpperCase() + s.network.slice(1),
+                label: s.label || s.network,
               }))}
             />
           </div>
@@ -179,16 +174,14 @@ export default function GetInvolvedPage() {
               }}
             >
               <h3 className="ss-display-s">Thank you</h3>
-              <p className="ss-lead">
-                We’ve got your details and someone from the team will be in touch soon. Check your
-                email for a confirmation.
-              </p>
+              <p className="ss-lead">{copy.thankYou}</p>
               <Button variant="secondary" onClick={() => setSent(false)}>
                 Send another
               </Button>
             </div>
           ) : (
             <form
+              id="updates"
               noValidate
               onSubmit={submit}
               style={{
@@ -237,8 +230,14 @@ export default function GetInvolvedPage() {
                 name="help"
                 label="How would you like to help?"
                 required
-                options={HELP_OPTIONS}
+                options={KIT.HELP_OPTIONS}
                 error={errors.help}
+              />
+              <TextField
+                name="languages"
+                label="Languages you speak"
+                optional
+                hint="Helps us match volunteers to the people we meet at the door."
               />
               <Checkbox
                 id="gi-updates"
@@ -257,7 +256,7 @@ export default function GetInvolvedPage() {
                 </p>
               )}
               <Button type="submit" size="lg" icon="arrow-right" disabled={sending}>
-                {sending ? 'Sending…' : 'Sign up'}
+                {sending ? 'Sending…' : 'Count me in'}
               </Button>
               <p className="ss-meta">
                 We’ll only use your details to follow up about volunteering or updates you asked for.
@@ -275,6 +274,46 @@ export default function GetInvolvedPage() {
               </p>
             </form>
           )}
+        </div>
+      </section>
+      <section className="ss-section">
+        <div
+          className="ss-container"
+          style={{
+            display: 'grid',
+            gap: 20,
+            maxWidth: 720,
+            borderTop: '6px solid var(--green-500)',
+            paddingTop: 32,
+          }}
+        >
+          <h2 className="ss-display-s">{copy.electionHeading}</h2>
+          <p className="ss-lead">
+            {copy.electionText}{' '}
+            <TextLink href={LINKS.enrol} external arrow={false}>
+              elections.nsw.gov.au
+            </TextLink>
+            .
+          </p>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <Button
+              href={LINKS.joinGreens}
+              icon="arrow-up-right"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Join the Greens
+            </Button>
+            <Button
+              href={LINKS.donate}
+              variant="secondary"
+              icon="arrow-up-right"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Chip in
+            </Button>
+          </div>
         </div>
       </section>
     </>

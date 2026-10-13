@@ -30,8 +30,7 @@ export default function AccessibilityPage() {
           <ArticleBody>
             <p className="ss-prose__lead">
               Accessibility is part of treating people with respect. We aim to make
-              sujanselven.org usable, readable, and navigable for everyone in the Cumberland
-              community.
+              sujanselven.org usable, readable, and navigable for everyone in Western Sydney.
             </p>
 
             <h2>What we aim for</h2>
@@ -47,28 +46,30 @@ export default function AccessibilityPage() {
 
             <h2>Known limits</h2>
             <p>
-              Some community photography and content are still being supplied. Where a photo is not
-              available yet, a labelled placeholder is shown. We will keep improving content and
-              structure as the site develops.
+              Some community photography is still being supplied. Where a photo is not available
+              yet, a labelled placeholder is shown. We will keep improving content and structure as
+              the site develops.
             </p>
 
             <h2>How to get help</h2>
             <p>
               If you have trouble using any part of this website, or need information in another
-              format, please{' '}
-              <TextLink {...linkTo(go, 'contact')}>contact the team</TextLink> or email{' '}
+              format, email{' '}
               <TextLink href={'mailto:' + KIT.contact.email} arrow={false}>
                 {KIT.contact.email}
-              </TextLink>
-              . Tell us which page you were on and what you were trying to do — that helps us fix it
-              faster.
+              </TextLink>{' '}
+              or{' '}
+              <TextLink {...linkTo(go, 'contact')}>use the contact form</TextLink>. We aim to reply
+              within two working days. Tell us which page you were on and what you were trying to
+              do — that helps us fix it faster.
             </p>
 
             <h2>Standards</h2>
             <p>
               We design with WCAG 2.2 guidance in mind (for example, contrast and focus treatment
               in the site design system). This page is a commitment to keep improving, not a formal
-              audit certificate.
+              audit certificate. We will only claim WCAG 2.2 AA conformance after the site has been
+              tested against that standard.
             </p>
 
             <p className="ss-meta">Last updated: October 2026</p>

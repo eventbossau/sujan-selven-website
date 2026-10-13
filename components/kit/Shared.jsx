@@ -8,6 +8,7 @@ import { TextLink } from '@/components/core/TextLink.jsx';
 import { NewsCard } from '@/components/cards/NewsCard.jsx';
 import { ImagePlaceholder } from '@/components/brand/ImagePlaceholder.jsx';
 import { KIT } from '@/lib/data';
+import { draft } from '@/lib/copy';
 
 export function toHref(route) {
   const key = String(route).replace(/^\//, '').replace(/^$/, 'home');
@@ -81,7 +82,7 @@ export function ContactStrip({ go }) {
         <div style={{ display: 'grid', gap: 10, maxWidth: 640 }}>
           <h2 className="ss-display-s">Got something on your mind?</h2>
           <p className="ss-body" style={{ color: 'var(--text-body)' }}>
-            Whether it’s a local issue, an idea or a question, Sujan wants to hear from you.
+            {draft.home.contactStripLead}
           </p>
         </div>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -136,6 +137,7 @@ export function EventRow({ ev }) {
 }
 
 export function NewsGridCard({ item, go, layout }) {
+  const route = item.slug ? 'news/' + item.slug : 'news/article';
   return (
     <NewsCard
       layout={layout}
@@ -146,7 +148,7 @@ export function NewsGridCard({ item, go, layout }) {
       date={item.date}
       title={item.title}
       excerpt={item.excerpt}
-      {...linkTo(go, 'news/article')}
+      {...linkTo(go, route)}
     />
   );
 }

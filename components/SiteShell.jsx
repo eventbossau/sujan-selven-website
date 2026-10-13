@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { SiteHeader } from '@/components/navigation/SiteHeader.jsx';
 import { SiteFooter } from '@/components/navigation/SiteFooter.jsx';
+import { AnnouncementBar } from '@/components/navigation/AnnouncementBar.jsx';
 import { KIT } from '@/lib/data';
 import { draft } from '@/lib/copy';
 
@@ -31,6 +32,9 @@ export function SiteShell({ children }) {
       <a className="ss-skip-link" href="#main">
         Skip to content
       </a>
+      <AnnouncementBar tone="deep" href="/get-involved" linkLabel="Get involved" dismissible>
+        {draft.banner}
+      </AnnouncementBar>
       <SiteHeader current={current} onNavigate={onNavigate} socials={KIT.socials} />
       <main id="main" data-screen-label={current}>
         {children}

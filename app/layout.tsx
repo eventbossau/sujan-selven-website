@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import { SiteShell } from '@/components/SiteShell.jsx';
+import { draft } from '@/lib/copy';
 import '@/styles/design-system.css';
 
 export const metadata: Metadata = {
-  title: 'Sujan Selven — Because the People Matter',
-  description:
-    'Public website for Sujan Selven — Because the People Matter. The Greens, Cumberland / Western Sydney.',
+  title: {
+    default: draft.meta.home.title,
+    template: '%s | Sujan Selven for Prospect',
+  },
+  description: draft.meta.home.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

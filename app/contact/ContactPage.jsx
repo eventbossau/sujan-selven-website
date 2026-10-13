@@ -11,6 +11,7 @@ import { Button } from '@/components/core/Button.jsx';
 import { SocialLinks } from '@/components/core/SocialLinks.jsx';
 import { Icon } from '@/components/core/Icon.jsx';
 import { KIT } from '@/lib/data';
+import { draft } from '@/lib/copy';
 import { useGo } from '@/components/kit/Shared.jsx';
 
 export default function ContactPage() {
@@ -68,7 +69,7 @@ export default function ContactPage() {
   const info = [
     { icon: 'mail', l: 'Email', v: KIT.contact.email, href: 'mailto:' + KIT.contact.email },
     { icon: 'phone', l: 'Phone', v: KIT.contact.phone, href: KIT.contact.phoneHref },
-    { icon: 'map-pin', l: 'Office', v: KIT.contact.office },
+    { icon: 'map-pin', l: 'Location', v: KIT.contact.office },
   ];
 
   return (
@@ -89,7 +90,7 @@ export default function ContactPage() {
             Let’s <em>talk</em>
           </>
         }
-        lead="Got a question, an idea or a local issue? Get in touch — every message is read."
+        lead={draft.contact.heroLead}
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(40px,5vw,72px)' }}>
         <div
@@ -114,7 +115,8 @@ export default function ContactPage() {
             >
               <h2 className="ss-display-s">Message sent</h2>
               <p className="ss-lead">
-                Thanks for getting in touch. We’ve also emailed you a confirmation.
+                Thanks for getting in touch. We’ve also emailed you a confirmation.{' '}
+                {draft.contact.replyTime}
               </p>
               <div>
                 <Button variant="secondary" onClick={() => setSent(false)}>
@@ -188,6 +190,7 @@ export default function ContactPage() {
                   {formError}
                 </p>
               )}
+              <p className="ss-meta">{draft.contact.replyTime}</p>
               <div>
                 <Button type="submit" size="lg" icon="send" disabled={sending}>
                   {sending ? 'Sending…' : 'Send message'}
@@ -223,7 +226,12 @@ export default function ContactPage() {
               <p className="ss-overline" style={{ color: 'var(--ink)' }}>
                 Follow
               </p>
-              <SocialLinks links={KIT.socials.slice(0, 3)} />
+              <SocialLinks
+                links={KIT.socials.slice(0, 3).map((s) => ({
+                  ...s,
+                  label: s.label || s.network,
+                }))}
+              />
             </div>
           </aside>
         </div>
