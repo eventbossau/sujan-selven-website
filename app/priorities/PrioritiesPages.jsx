@@ -132,7 +132,10 @@ export function PriorityDetailPage({ pkey }) {
             Get involved
           </Button>
         }
-        media={<ImagePlaceholder label={p.photoCaption} ratio="4/5" />}
+        image={p.image || undefined}
+        media={
+          p.image ? undefined : <ImagePlaceholder label={p.photoCaption} ratio="4/5" />
+        }
       />
       <section className="ss-section">
         <div
@@ -175,11 +178,7 @@ export function PriorityDetailPage({ pkey }) {
       <section className="ss-section" style={{ background: 'var(--surface-subtle)' }}>
         <div className="ss-container">
           <SplitSection
-            image={{
-              src: KIT.P + 'portrait-shirt-06.jpg',
-              alt: 'Sujan Selven',
-              position: '50% 30%',
-            }}
+            image={KIT.PHOTOS.suitSide}
             overline="What I am working towards"
             title="I will fight for"
           >

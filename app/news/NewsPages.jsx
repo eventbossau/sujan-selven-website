@@ -80,13 +80,7 @@ export function NewsPage() {
             <div style={{ marginBottom: 'clamp(48px,6vw,88px)' }}>
               <NewsCard
                 layout="feature"
-                image={
-                  lead.image || {
-                    src: KIT.P + 'portrait-blazer-02.jpg',
-                    alt: 'Sujan Selven',
-                    position: '50% 30%',
-                  }
-                }
+                image={lead.image || KIT.PHOTOS.newsFeature}
                 category={lead.category}
                 categoryTone={KIT.catTone[lead.category]}
                 date={lead.date}
@@ -146,12 +140,9 @@ export function ArticlePage({ slug }) {
         lead={item.excerpt}
         meta={meta}
         image={
-          item.image || {
-            src: KIT.P + 'portrait-blazer-01.jpg',
-            alt: 'Sujan Selven',
-            position: '50% 28%',
-            caption: item.ph,
-          }
+          item.image
+            ? { ...item.image, caption: item.ph }
+            : { ...KIT.PHOTOS.newsFeature, caption: item.ph }
         }
       />
       <section className="ss-section" style={{ paddingTop: 'clamp(32px,4vw,64px)' }}>

@@ -30,11 +30,7 @@ export default function HomePage() {
           </>
         }
         lead={copy.heroLead}
-        image={{
-          src: K.P + 'portrait-blazer-03.jpg',
-          alt: 'Sujan Selven, Greens candidate for Prospect, standing in a local park',
-          position: '50% 22%',
-        }}
+        image={K.PHOTOS.homeHero}
         actions={
           <>
             <Button variant="inverse" icon="arrow-right" size="lg" {...linkTo(go, 'get-involved')}>
@@ -67,11 +63,7 @@ export default function HomePage() {
       <section className="ss-section" style={{ paddingTop: 0 }}>
         <div className="ss-container">
           <SplitSection
-            image={{
-              src: K.P + 'portrait-shirt-03.jpg',
-              alt: 'Portrait of Sujan Selven',
-              position: '50% 30%',
-            }}
+            image={K.PHOTOS.meetSujan}
             frame="bl"
             overline={copy.meetOverline}
             title={copy.meetHeadline}
@@ -136,7 +128,12 @@ export default function HomePage() {
                 title={s.title}
                 text={s.text}
                 ratio={i === 1 ? '4/5' : '1/1'}
-                media={<ImagePlaceholder label={s.ph} ratio={i === 1 ? '4/5' : '1/1'} />}
+                image={s.image}
+                media={
+                  s.image ? null : (
+                    <ImagePlaceholder label={s.ph} ratio={i === 1 ? '4/5' : '1/1'} />
+                  )
+                }
                 {...linkTo(go, 'community')}
               />
             ))}

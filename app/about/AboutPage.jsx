@@ -8,7 +8,6 @@ import { PhotoBand } from '@/components/content/PhotoBand.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
 import { Button } from '@/components/core/Button.jsx';
 import { GreensMark } from '@/components/brand/GreensMark.jsx';
-import { ImagePlaceholder } from '@/components/brand/ImagePlaceholder.jsx';
 import { KIT } from '@/lib/data';
 import { draft } from '@/lib/copy';
 import { linkTo, useGo } from '@/components/kit/Shared.jsx';
@@ -36,11 +35,7 @@ export default function AboutPage() {
           </>
         }
         lead={copy.heroLead}
-        image={{
-          src: K.P + 'portrait-shirt-05.jpg',
-          alt: 'Sujan Selven smiling outdoors',
-          position: '50% 25%',
-        }}
+        image={K.PHOTOS.aboutHero}
       />
       <section className="ss-section">
         <div className="ss-container ss-container--narrow">
@@ -65,9 +60,9 @@ export default function AboutPage() {
         </div>
       </section>
       <PhotoBand
-        src={K.P + 'portrait-blazer-01.jpg'}
-        alt="Sujan Selven in a park"
-        position="50% 30%"
+        src={K.PHOTOS.aboutBand.src}
+        alt={K.PHOTOS.aboutBand.alt}
+        position={K.PHOTOS.aboutBand.position}
         statement={
           <>
             People over <em>politics</em>
@@ -78,7 +73,7 @@ export default function AboutPage() {
         <div className="ss-container">
           <SplitSection
             imageSide="right"
-            media={<ImagePlaceholder label={copy.photoCaption} ratio="4/5" />}
+            image={K.PHOTOS.aboutCommunity}
             overline="In the community"
             title={copy.communityHeadline}
           >

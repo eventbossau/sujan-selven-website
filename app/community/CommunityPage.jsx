@@ -5,7 +5,6 @@ import { Breadcrumbs } from '@/components/navigation/Breadcrumbs.jsx';
 import { SectionHeading } from '@/components/content/SectionHeading.jsx';
 import { StoryCard } from '@/components/cards/StoryCard.jsx';
 import { ImagePlaceholder } from '@/components/brand/ImagePlaceholder.jsx';
-import { TriangleImage } from '@/components/brand/TriangleImage.jsx';
 import { Button } from '@/components/core/Button.jsx';
 import { Tag } from '@/components/core/Tag.jsx';
 import { Icon } from '@/components/core/Icon.jsx';
@@ -36,11 +35,7 @@ export default function CommunityPage() {
           </>
         }
         lead={copy.heroLead}
-        media={
-          <TriangleImage shape="slant" frame="bl" ratio="4/5">
-            <ImagePlaceholder label={copy.photoCaption} ratio="4/5" />
-          </TriangleImage>
-        }
+        image={KIT.PHOTOS.communityHero}
       />
       <section className="ss-section">
         <div className="ss-container">
@@ -60,7 +55,12 @@ export default function CommunityPage() {
                 text={feature.text}
                 ratio="16/9"
                 shape="corner"
-                media={<ImagePlaceholder label={feature.ph} ratio="16/9" />}
+                image={feature.image}
+                media={
+                  feature.image ? null : (
+                    <ImagePlaceholder label={feature.ph} ratio="16/9" />
+                  )
+                }
               />
             </div>
             {rest.map((s) => (
@@ -71,7 +71,8 @@ export default function CommunityPage() {
                   title={s.title}
                   text={s.text}
                   ratio="1/1"
-                  media={<ImagePlaceholder label={s.ph} ratio="1/1" />}
+                  image={s.image}
+                  media={s.image ? null : <ImagePlaceholder label={s.ph} ratio="1/1" />}
                 />
               </div>
             ))}

@@ -91,11 +91,7 @@ export default function GetInvolvedPage() {
           </>
         }
         lead={copy.heroLead}
-        image={{
-          src: KIT.P + 'portrait-shirt-07.jpg',
-          alt: copy.photoAlt,
-          position: '50% 28%',
-        }}
+        image={{ ...KIT.PHOTOS.getInvolved, alt: copy.photoAlt }}
       />
       <section className="ss-section--sm">
         <ul
