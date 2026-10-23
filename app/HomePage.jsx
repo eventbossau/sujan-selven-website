@@ -26,7 +26,11 @@ export default function HomePage() {
         overline={copy.heroOverline}
         title={
           <>
-            Because the <em>people</em> matter
+            Because
+            <br />
+            the <em>people</em>
+            <br />
+            matter
           </>
         }
         lead={copy.heroLead}

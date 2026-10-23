@@ -11,17 +11,52 @@
 @media (max-width:760px){.ss-shead{grid-template-columns:1fr}}
 /* Hero — campaign */
 .ss-hero{position:relative;overflow:hidden}
-.ss-hero--campaign{background:var(--green-500);color:var(--white);min-height:min(88vh,860px);display:grid}
-.ss-hero--campaign .ss-hero__media{position:absolute;inset:0 0 0 44%;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
-.ss-hero--campaign .ss-hero__media img{width:100%;height:100%;object-fit:cover;object-position:var(--hero-pos,52% 8%)}
-.ss-hero--campaign .ss-hero__in{position:relative;z-index:2;display:grid;align-content:center;gap:28px;padding-block:clamp(64px,8vw,120px)}
-.ss-hero--campaign .ss-hero__title{font-family:var(--font-display);font-weight:400;font-size:var(--fs-display-xl);line-height:.88;text-transform:uppercase;letter-spacing:.002em;color:var(--white);max-width:7.2ch}
+.ss-hero--campaign{background:var(--green-500);color:var(--white);min-height:min(calc(100svh - var(--announce-h) - var(--header-h)),720px);display:grid}
+/*
+  Desktop media is right-anchored with a capped width so the cover box stays
+  near the 4:5 portrait ratio. That keeps scale consistent across wide
+  monitors and lets object-position steer the face (horizontal crop).
+  --hero-pos from data (inline); --hero-pos-mq overrides at breakpoints.
+*/
+.ss-hero--campaign .ss-hero__media{position:absolute;top:0;right:0;bottom:0;left:auto;width:min(56vw,680px);overflow:hidden;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+.ss-hero--campaign .ss-hero__media img{width:100%;height:100%;object-fit:cover;object-position:var(--hero-pos-mq,var(--hero-pos,60% 14%))}
+.ss-hero--campaign .ss-hero__in{position:relative;z-index:2;display:grid;align-content:center;gap:28px;padding-block:clamp(48px,6vw,88px)}
+.ss-hero--campaign .ss-hero__title{font-family:var(--font-display);font-weight:400;font-size:var(--fs-display-xl);line-height:.88;text-transform:uppercase;letter-spacing:.002em;color:var(--white);max-width:11ch}
 .ss-hero--campaign .ss-hero__title em{font-style:normal;color:var(--green-950)}
 .ss-hero--campaign .ss-hero__lead{font-size:var(--fs-lead);line-height:1.45;color:var(--green-950);max-width:38ch}
 .ss-hero--campaign .ss-overline{color:var(--green-950)}
 .ss-hero__tri{position:absolute;z-index:1;left:34%;bottom:-6%;width:clamp(220px,30vw,480px);color:var(--white)}
 .ss-hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-@media (max-width:900px){.ss-hero--campaign{min-height:0;display:flex;flex-direction:column}.ss-hero--campaign .ss-hero__media{position:relative;inset:auto;aspect-ratio:4/3;clip-path:polygon(0 0,100% 0,100% 86%,0 100%)}.ss-hero--campaign .ss-hero__tri{left:auto;right:-10%;top:auto;bottom:6%;width:58vw}.ss-hero--campaign .ss-hero__in{padding-block:24px 56px}.ss-hero--campaign .ss-hero__title{max-width:none}}
+@media (min-width:1600px){
+  .ss-hero--campaign{--hero-pos-mq:58% 12%}
+  .ss-hero--campaign .ss-hero__media{width:min(48vw,720px);clip-path:polygon(14% 0,100% 0,100% 100%,0 100%)}
+}
+@media (min-width:1200px) and (max-width:1599px){
+  .ss-hero--campaign{--hero-pos-mq:56% 14%}
+  .ss-hero--campaign .ss-hero__media{width:min(52vw,640px)}
+}
+@media (min-width:901px) and (max-width:1199px){
+  .ss-hero--campaign{--hero-pos-mq:54% 16%}
+  .ss-hero--campaign .ss-hero__media{width:min(58vw,560px);clip-path:polygon(20% 0,100% 0,100% 100%,0 100%)}
+}
+@media (min-width:901px) and (max-height:820px){
+  .ss-hero--campaign{--hero-pos-mq:56% 18%}
+}
+@media (min-width:901px) and (max-height:720px){
+  .ss-hero--campaign{--hero-pos-mq:54% 22%}
+}
+@media (max-width:900px){
+  .ss-hero--campaign{min-height:0;display:flex;flex-direction:column;--hero-pos-mq:52% 18%}
+  .ss-hero--campaign .ss-hero__media{position:relative;inset:auto;top:auto;right:auto;bottom:auto;left:auto;width:100%;aspect-ratio:4/3;clip-path:polygon(0 0,100% 0,100% 86%,0 100%)}
+  .ss-hero--campaign .ss-hero__media img{position:absolute;inset:0}
+  .ss-hero--campaign .ss-hero__tri{left:auto;right:-10%;top:auto;bottom:6%;width:58vw}
+  .ss-hero--campaign .ss-hero__in{padding-block:24px 56px}
+  .ss-hero--campaign .ss-hero__title{max-width:none}
+}
+@media (max-width:600px){
+  .ss-hero--campaign{--hero-pos-mq:50% 16%}
+  .ss-hero--campaign .ss-hero__media{aspect-ratio:5/4}
+}
 /* Hero — page */
 .ss-hero--page{background:var(--surface-subtle)}
 .ss-hero--page .ss-hero__in{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,80px);align-items:end;padding-block:clamp(40px,5vw,72px) clamp(56px,7vw,112px)}
