@@ -2,6 +2,7 @@ import { contactSchema } from '@/lib/email/schemas.js';
 import { getEmailConfig, sendMail } from '@/lib/email/resend.js';
 import { contactAutoReplyEmail, contactNotifyEmail, getLogoAttachment } from '@/lib/email/templates.js';
 import { clientIp, json, rateLimit } from '@/lib/email/rate-limit.js';
+import { contactToAirtableFields, createAirtableRecord } from '@/lib/airtable.js';
 
 export async function POST(request) {
   try {
@@ -54,6 +55,12 @@ export async function POST(request) {
       html: autoReply.html,
       attachments: [logo],
     });
+
+    try {
+      await createAirtableRecord('contact', contactToAirtableFields(data));
+    } catch (airtableErr) {
+      console.error('[api/contact] airtable', airtableErr);
+    }
 
     return json({ ok: true });
   } catch (err) {

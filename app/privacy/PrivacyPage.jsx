@@ -82,7 +82,8 @@ export default function PrivacyPage() {
 
             <h2>Security and tools</h2>
             <p>
-              Form submissions are sent by email through Resend. The website is hosted on Vercel.
+              Form submissions are sent by email through Resend and stored in Airtable so the team
+              can follow up. The website is hosted on Vercel.
               Like most websites, hosting tools may record basic technical details such as browser
               type and pages visited. We do not run third-party advertising cookies on this site.
             </p>

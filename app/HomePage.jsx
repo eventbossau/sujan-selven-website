@@ -138,7 +138,7 @@ export default function HomePage() {
                     <ImagePlaceholder label={s.ph} ratio={i === 1 ? '4/5' : '1/1'} />
                   )
                 }
-                {...linkTo(go, 'community')}
+                {...linkTo(go, 'news/' + s.newsSlug)}
               />
             ))}
           </div>

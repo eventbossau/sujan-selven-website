@@ -61,6 +61,7 @@ export default function CommunityPage() {
                     <ImagePlaceholder label={feature.ph} ratio="16/9" />
                   )
                 }
+                {...linkTo(go, 'news/' + feature.newsSlug)}
               />
             </div>
             {rest.map((s) => (
@@ -73,6 +74,7 @@ export default function CommunityPage() {
                   ratio="1/1"
                   image={s.image}
                   media={s.image ? null : <ImagePlaceholder label={s.ph} ratio="1/1" />}
+                  {...linkTo(go, 'news/' + s.newsSlug)}
                 />
               </div>
             ))}

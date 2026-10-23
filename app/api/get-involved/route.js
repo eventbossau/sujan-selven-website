@@ -2,6 +2,7 @@ import { getInvolvedSchema } from '@/lib/email/schemas.js';
 import { getEmailConfig, sendMail } from '@/lib/email/resend.js';
 import { getInvolvedAutoReplyEmail, getInvolvedNotifyEmail, getLogoAttachment } from '@/lib/email/templates.js';
 import { clientIp, json, rateLimit } from '@/lib/email/rate-limit.js';
+import { createAirtableRecord, getInvolvedToAirtableFields } from '@/lib/airtable.js';
 
 export async function POST(request) {
   try {
@@ -53,6 +54,12 @@ export async function POST(request) {
       html: autoReply.html,
       attachments: [logo],
     });
+
+    try {
+      await createAirtableRecord('get-involved', getInvolvedToAirtableFields(data));
+    } catch (airtableErr) {
+      console.error('[api/get-involved] airtable', airtableErr);
+    }
 
     return json({ ok: true });
   } catch (err) {
