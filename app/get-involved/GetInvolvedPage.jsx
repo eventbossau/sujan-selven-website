@@ -152,7 +152,7 @@ export default function GetInvolvedPage() {
             />
             <SocialLinks
               labelled
-              links={KIT.socials.slice(0, 3).map((s) => ({
+              links={KIT.socials.filter((s) => s.network !== 'mail').map((s) => ({
                 ...s,
                 label: s.label || s.network,
               }))}

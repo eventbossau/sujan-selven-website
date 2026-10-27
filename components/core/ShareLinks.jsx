@@ -18,6 +18,11 @@ function buildShareLinks(url, title) {
       label: 'Share on LinkedIn',
     },
     {
+      network: 'x',
+      href: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      label: 'Share on X',
+    },
+    {
       network: 'mail',
       href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
       label: 'Share by email',

@@ -1,7 +1,14 @@
 'use client';
 import React from 'react';
 import { Icon } from './Icon.jsx';
-const LABEL = { facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', mail: 'Email' };
+const LABEL = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  x: 'X',
+  tiktok: 'TikTok',
+  mail: 'Email',
+};
 export function SocialLinks({ links = [], tone = 'default', size = 'md', labelled = false, className = '', ...rest }) {
   const cls = ['ss-social', tone === 'inverse' ? 'ss-social--inverse' : '', size === 'lg' ? 'ss-social--lg' : '', labelled ? 'ss-social--labelled' : '', className].join(' ');
   return (
